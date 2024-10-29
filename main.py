@@ -48,6 +48,15 @@ def colour_lookup():
     df = pd.read_csv("colours.csv")
     return df['name'].values
 
+
+def FOL2grid(preds):
+    preds = np.char.replace(preds,r"output_colour(","")
+    preds = np.char.replace(preds, r").", "")
+    strs = np.array(np.char.split(preds,",").tolist())
+    idx = strs[...,:2].astype(int)
+    strs[...,-1]
+
+
 def load_jsons():
 
     # Load a single ARC task
@@ -63,6 +72,8 @@ def load_jsons():
 
     in_preds = grid2FOL(input_grid, "input")
     out_preds = grid2FOL(output_grid, "output")
+
+    FOL2grid(out_preds)
 
     return
 
