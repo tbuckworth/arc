@@ -58,16 +58,21 @@ def load_jsons():
     input_grid = task['train'][0]['input']
     output_grid = task['train'][0]['output']
 
-    rgb_grid = array_and_plot_grid(input_grid)
-    array_and_plot_grid(output_grid)
+    # rgb_grid = array_and_plot_grid(input_grid)
+    # array_and_plot_grid(output_grid)
 
-    grid = np.array(input_grid)
-    col_grid = colour_lookup()[grid]
-
-    str_grid = np.array([[f"cell_colour({i},{j},{col_grid[i, j]})." for j in range(grid.shape[1])] for i in range(grid.shape[0])])
-
+    in_preds = grid2FOL(input_grid, "input")
+    out_preds = grid2FOL(output_grid, "output")
 
     return
+
+
+def grid2FOL(input_grid, prefix):
+    grid = np.array(input_grid)
+    col_grid = colour_lookup()[grid]
+    str_grid = np.array(
+        [[f"{prefix}_colour({i},{j},{col_grid[i, j]})." for j in range(grid.shape[1])] for i in range(grid.shape[0])])
+    return str_grid
 
 
 def array_and_plot_grid(input_grid):
