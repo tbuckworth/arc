@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array
+from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array, run_prolog_program
 
 
 class TaskTester(unittest.TestCase):
@@ -33,16 +33,25 @@ class TaskTester(unittest.TestCase):
         in_prolog = FOL2prolog(self.in_preds)
         with open('prolog/input_example_1.pl', 'w') as file:
             file.write(in_prolog)
-        with open('prolog/solution_1.pl', 'w') as file:
-            prolog_program = file.read()
+        # with open('prolog/solution_1.pl', 'rt') as file:
+        #     prolog_program = file.read()
 
-        full_program = in_prolog + prolog_program
+        # full_program = in_prolog + prolog_program
+        #
+        # with open('prolog/temp.pl', 'w') as file:
+        #     file.write(full_program)
 
-        with open('prolog/temp.pl', 'w') as file:
-            file.write(full_program)
+        program = """
+        working_directory(prolog).
+        compile(input_example_1).
+        compile(solution_1).
+        write('done!'), nl, halt.
+        """
+        # output_colour(R, C, Colour).
 
-        subprocess.run
+        out = run_prolog_program(program)
 
+        print(out)
 
 
 

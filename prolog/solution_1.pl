@@ -1,35 +1,41 @@
 
 
+row(R):-
+    input_colour(R,_,_).
+
+column(C):-
+    input_colour(_,C,_).
+
 nrow(NR):-
-    input_colour(NR,_,_),
-    input_colour(R2,_,_),
-    \+ R2 > NR.
+    row(NR),
+    row(R),
+    \+ R > NR.
 
 ncol(NC):-
-    input_colour(_,NC,_),
-    input_colour(_,C2,_),
-    \+ C2 > NC.
+    col(NC),
+    col(C),
+    \+ C > NC.
 
 vertical_colour(C,Colour):-
     input_colour(R,C,Colour),
     R is 0,
-    \+ Colour is 'black'.
+    \+ Colour = black.
 
 vertical_colour(C,Colour):-
     nrow(NR),
     input_colour(NR,C,Colour),
-    \+ Colour is 'black'.
+    \+ Colour = black.
 
 
 horizontal_colour(R,Colour):-
     input_colour(R,C,Colour),
     C is 0,
-    \+ Colour is 'black'.
+    \+ Colour = black.
 
 horizontal_colour(R,Colour):-
     ncol(NC),
     input_colour(R,NC,Colour),
-    \+ Colour is 'black'.
+    \+ Colour = black.
 
 
 horizontal_diff(N):-
@@ -50,6 +56,7 @@ remainder(N,D,R):-
 
 output_colour(_,C,Colour):-
     vertical_colour(Cstart,Colour),
+    column(C),
     vertical_diff(VD),
     C >= Cstart,
     VDtwo is 2 * VD,
@@ -58,6 +65,7 @@ output_colour(_,C,Colour):-
 
 output_colour(R,_,Colour):-
     horizontal_colour(Rstart,Colour),
+    row(R),
     horizontal_diff(VD),
     R >= Rstart,
     VDtwo is 2 * VD,

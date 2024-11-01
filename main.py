@@ -7,7 +7,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import subprocess
 
-def run_prolog_program(prolog_code):
+def run_prolog_program(prolog_query = "write('Hello from Prolog!'), nl, halt."):
+
+    # Construct the command to run SICStus Prolog
+    command = ['/usr/local/sicstus4.8.0/bin/sicstus', '--noinfo', '--goal', prolog_query]
+
+    # Execute the command
+    result = subprocess.run(command, capture_output=True, text=True)
+
+    # Print the output
+    return result.stdout
+
 
     # Start the SWI-Prolog process
     process = subprocess.Popen(
