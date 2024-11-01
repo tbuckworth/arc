@@ -5,6 +5,45 @@ from pickle import FALSE
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import subprocess
+
+def run_prolog_program(prolog_code):
+
+    # Start the SWI-Prolog process
+    process = subprocess.Popen(
+        ['swipl', '-q'],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    # Define Prolog code to load
+    prolog_code = """
+    parent(john, mary).
+    parent(mary, susan).
+
+    ancestor(X, Y) :- parent(X, Y).
+    ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+    """
+
+    # Send the code to Prolog
+    process.stdin.write(prolog_code + '\n')
+    process.stdin.flush()
+
+    # Send a query
+    process.stdin.write('ancestor(john, Who), write(Who), nl, fail.\n')
+    process.stdin.flush()
+
+    # Indicate end of input
+    process.stdin.write('halt.\n')
+    process.stdin.flush()
+
+    # Read the output
+    output, error = process.communicate()
+
+    # Print the output
+    return output, error
 
 
 def hex_to_rgb(hex_color):

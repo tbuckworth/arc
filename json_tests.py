@@ -33,6 +33,16 @@ class TaskTester(unittest.TestCase):
         in_prolog = FOL2prolog(self.in_preds)
         with open('prolog/input_example_1.pl', 'w') as file:
             file.write(in_prolog)
+        with open('prolog/solution_1.pl', 'w') as file:
+            prolog_program = file.read()
+
+        full_program = in_prolog + prolog_program
+
+        with open('prolog/temp.pl', 'w') as file:
+            file.write(full_program)
+
+        subprocess.run
+
 
 
 
