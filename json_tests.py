@@ -6,10 +6,10 @@ import numpy as np
 from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array
 
 
-class MyTestCase(unittest.TestCase):
+class TaskTester(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.task = load_task()
+        cls.task = load_task()#"data/training/0b148d64.json")
         # Example of accessing input/output grids for the first example
         cls.input_grid = cls.task['train'][0]['input']
         cls.output_grid = cls.task['train'][0]['output']
@@ -25,10 +25,14 @@ class MyTestCase(unittest.TestCase):
 
     def test_print(self):
         out_prolog = FOL2prolog(self.out_preds)
-
         out_FOL_array = prolog2FOL_array(out_prolog)
-
         out_grid = FOL2grid(out_FOL_array)
+        self.assertTrue((out_grid == self.output_grid).all())
+
+    def test_prolog_program(self):
+        in_prolog = FOL2prolog(self.in_preds)
+        with open('prolog/input_example_1.pl', 'w') as file:
+            file.write(in_prolog)
 
 
 

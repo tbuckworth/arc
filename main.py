@@ -128,27 +128,6 @@ def load_jsons():
     # Load a single ARC task
     task = load_task()
 
-    # Example of accessing input/output grids for the first example
-    input_grid = task['train'][0]['input']
-    output_grid = task['train'][0]['output']
-
-    # rgb_grid = array_and_plot_grid(input_grid)
-    array_and_plot_grid(output_grid)
-
-    in_preds = grid2FOL(input_grid, "input")
-    out_preds = grid2FOL(output_grid, "output")
-    array_and_plot_grid(FOL2grid(out_preds))
-
-    old_out_preds = copy.deepcopy(out_preds)
-    np.random.shuffle(out_preds)
-    [np.random.shuffle(x) for x in out_preds]
-
-    assert (FOL2grid(out_preds) == FOL2grid(old_out_preds)).all()
-
-    out_grid = FOL2grid(out_preds)
-    array_and_plot_grid(out_grid)
-
-    return
 
 
 def load_task(json_file='data/training/0a938d79.json'):
