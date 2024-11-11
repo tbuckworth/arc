@@ -38,20 +38,11 @@ class TaskTester(unittest.TestCase):
 
         # full_program = in_prolog + prolog_program
         #
-        # with open('prolog/temp.pl', 'w') as file:
-        #     file.write(full_program)
 
-        program = """
-        use_module(library(file_systems)).
-        current_directory(Dir, 'prolog').
-        compile(input_example_1).
-        compile(solution_1).
-        output_colour(R, C, Colour).
-        write('done!'), nl, halt.
-        """
-        # output_colour(R, C, Colour).
+        # program = "[input_example_1].\n[solution_1].\n[background_knowledge].\n"
+        program = "[input_example_1], [solution_1], [background_knowledge], print_results, halt."
 
-        out = run_prolog_program(program)
+        out = run_prolog_program(program=program, curr_dir='./prolog')
 
         print(out)
 

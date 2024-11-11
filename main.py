@@ -7,17 +7,35 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import subprocess
 
-def run_prolog_program(prolog_query = "write('Hello from Prolog!'), nl, halt."):
 
+def run_prolog_program(program, curr_dir=""):
     # Construct the command to run SICStus Prolog
-    command = ['/usr/local/sicstus4.8.0/bin/sicstus', '--noinfo', '--goal', prolog_query]
+    command = ['/usr/local/sicstus4.8.0/bin/sicstus', '--noinfo', '--goal', program]
 
     # Execute the command
-    result = subprocess.run(command, capture_output=True, text=True)
+    # result = subprocess.run(command, capture_output=True, text=True, cwd=curr_dir)
+
+    try:
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            cwd=curr_dir,
+            timeout=30  # Timeout after 30 seconds
+        )
+        if result.returncode != 0:
+            print("SICStus Prolog reported an error:")
+            return result.stderr
+        else:
+            # Print the output
+            return result.stdout
+    except subprocess.TimeoutExpired:
+        print("SICStus Prolog timed out.")
+        return None
+
 
     # Print the output
     return result.stdout
-
 
     # Start the SWI-Prolog process
     process = subprocess.Popen(
@@ -176,7 +194,6 @@ def colour_names2idx(colour_names):
 def load_jsons():
     # Load a single ARC task
     task = load_task()
-
 
 
 def load_task(json_file='data/training/0a938d79.json'):
