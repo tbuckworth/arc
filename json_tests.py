@@ -42,9 +42,11 @@ class TaskTester(unittest.TestCase):
         #     file.write(full_program)
 
         program = """
-        working_directory(prolog).
+        use_module(library(file_systems)).
+        current_directory(Dir, 'prolog').
         compile(input_example_1).
         compile(solution_1).
+        output_colour(R, C, Colour).
         write('done!'), nl, halt.
         """
         # output_colour(R, C, Colour).
