@@ -77,6 +77,7 @@ output_colour(R,C,Colour):-
 
 
 output_colour(R,C,black):-
+%    input_colour(R,C,_),
     \+ output_colour(R,C,_).
 
 
