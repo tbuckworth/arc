@@ -77,36 +77,6 @@ output_colour(R,C,Colour):-
 output_colour(R,C,black):-
     \+ output_colour(R,C,_).
 
-%set_prolog_flag(print_length, infinite).
-%setof([R,C,Colour], R^C^Colour^output_colour(R,C,Colour), Cs).
-
-
-%written:-
-%    output_colour(R,C,Colour),
-%    write({"output_colour("+R+","+C+","+Colour+").\n"}).
-
-forall(P, Q):-
-    \+ (P, \+ Q).
-
-print_forall :-
-    forall(output_colour(R, C, Colour),
-           (write('output_colour('),
-            write(R), write(', '),
-            write(C), write(', '),
-            write(Colour), write(').'),
-            nl)).
-
-print_setof :-
-    setof((R, C, Colour), R^C^Colour^output_colour(R, C, Colour), Results),
-    print_results(Results).
-
-print_results([]).
-print_results([(R, C, Colour) | Rest]) :-
-    write('output_colour('),
-    write(R), write(', '),
-    write(C), write(', '),
-    write(Colour), write(').'), nl,
-    print_results(Rest).
 
 
 
