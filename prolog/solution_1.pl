@@ -81,16 +81,3 @@ output_colour(R,C,Colour):-
 %    \+ output_colour(R,C,_).
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
