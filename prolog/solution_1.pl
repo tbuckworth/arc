@@ -31,7 +31,8 @@ vertical_colour(C,Colour):-
     Colour \= black.
 
 vertical_colour(C,Colour):-
-    row(R),
+    nrow(NR),
+    R is NR - 1,
     input_colour(R,C,Colour),
     Colour \= black.
 
@@ -41,7 +42,8 @@ horizontal_colour(R,Colour):-
     Colour \= black.
 
 horizontal_colour(R,Colour):-
-    column(C),
+    ncol(NC),
+    C is NC-1,
     input_colour(R,C,Colour),
     Colour \= black.
 
