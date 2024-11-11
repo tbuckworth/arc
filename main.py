@@ -33,47 +33,6 @@ def run_prolog_program(program, curr_dir=""):
         print("SICStus Prolog timed out.")
         return None
 
-
-    # Print the output
-    return result.stdout
-
-    # Start the SWI-Prolog process
-    process = subprocess.Popen(
-        ['swipl', '-q'],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
-
-    # Define Prolog code to load
-    prolog_code = """
-    parent(john, mary).
-    parent(mary, susan).
-
-    ancestor(X, Y) :- parent(X, Y).
-    ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
-    """
-
-    # Send the code to Prolog
-    process.stdin.write(prolog_code + '\n')
-    process.stdin.flush()
-
-    # Send a query
-    process.stdin.write('ancestor(john, Who), write(Who), nl, fail.\n')
-    process.stdin.flush()
-
-    # Indicate end of input
-    process.stdin.write('halt.\n')
-    process.stdin.flush()
-
-    # Read the output
-    output, error = process.communicate()
-
-    # Print the output
-    return output, error
-
-
 def hex_to_rgb(hex_color):
     # Remove the '#' character if it exists
     hex_color = hex_color.lstrip('#')
@@ -148,7 +107,8 @@ def FOL2prolog(preds):
 
 
 def prolog2FOL_array(prolog):
-    return np.array(prolog.split('\n'))
+    arr = np.array(prolog.split('\n'))
+    return arr[arr != '']
 
 
 def FOL2grid(preds):
@@ -169,16 +129,6 @@ def FOL2grid(preds):
         out[tuple(idx[i])] = col_val[i]
 
     return out
-
-    return col_val[idx][..., -1].reshape((idx.max(0) + 1))
-
-    out = np.zeros_like(col_val)
-    for i in range(idx.shape[0]):
-        for j in range(idx.shape[1]):
-            out[tuple(idx[i, j])] = col_val[i, j]
-    return out
-    # row_col_val = np.concatenate((idx, np.expand_dims(col_val,-1)),-1 )
-    # nd_sort(row_col_val)
 
 
 def colour_names2idx(colour_names):

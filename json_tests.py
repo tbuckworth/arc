@@ -42,10 +42,13 @@ class TaskTester(unittest.TestCase):
         # program = "[input_example_1].\n[solution_1].\n[background_knowledge].\n"
         program = "[input_example_1], [solution_1], [background_knowledge], print_results, halt."
 
-        out = run_prolog_program(program=program, curr_dir='./prolog')
+        out_prolog = run_prolog_program(program=program, curr_dir='./prolog')
+
+        out_FOL_array = prolog2FOL_array(out_prolog)
+        out_grid = FOL2grid(out_FOL_array)
+        self.assertTrue((out_grid == self.output_grid).all())
 
         print(out)
-
 
 
 

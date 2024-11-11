@@ -1,8 +1,8 @@
 print_results([]).
 print_results([(R, C, Colour) | Rest]) :-
     write('output_colour('),
-    write(R), write(', '),
-    write(C), write(', '),
+    write(R), write(','),
+    write(C), write(','),
     write(Colour), write(').'), nl,
     print_results(Rest).
 
