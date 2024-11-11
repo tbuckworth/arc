@@ -1,3 +1,10 @@
+output_with_default(Row, Column, Colour) :-
+    row(Row),
+    column(Column),
+    (output(Row, Column, Colour), Colour \= _) -> true;
+    Colour = black.
+
+
 print_results([]).
 print_results([(R, C, Colour) | Rest]) :-
     write('output_colour('),

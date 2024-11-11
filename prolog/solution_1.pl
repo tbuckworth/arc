@@ -76,9 +76,9 @@ output_colour(R,C,Colour):-
     0 is ((R-Rstart) rem (2 * VD)).
 
 
-output_colour(R,C,black):-
-%    input_colour(R,C,_),
-    \+ output_colour(R,C,_).
+%output_colour(R,C,black):-
+%%    input_colour(R,C,_),
+%    \+ output_colour(R,C,_).
 
 
 
