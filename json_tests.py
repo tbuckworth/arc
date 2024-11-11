@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array, run_prolog_program
+from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array, run_prolog_program, array_and_plot_grid
 
 
 class TaskTester(unittest.TestCase):
@@ -46,9 +46,12 @@ class TaskTester(unittest.TestCase):
 
         out_FOL_array = prolog2FOL_array(out_prolog)
         out_grid = FOL2grid(out_FOL_array)
+        array_and_plot_grid(self.output_grid)
+        array_and_plot_grid(out_grid)
         self.assertTrue((out_grid == self.output_grid).all())
 
-        print(out)
+
+        print("done")
 
 
 
