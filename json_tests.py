@@ -33,13 +33,7 @@ class TaskTester(unittest.TestCase):
         in_prolog = FOL2prolog(self.in_preds)
         with open('prolog/input_example_1.pl', 'w') as file:
             file.write(in_prolog)
-        # with open('prolog/solution_1.pl', 'rt') as file:
-        #     prolog_program = file.read()
 
-        # full_program = in_prolog + prolog_program
-        #
-
-        # program = "[input_example_1].\n[solution_1].\n[background_knowledge].\n"
         program = "[input_example_1], [solution_1], [background_knowledge], print_results, halt."
 
         out_prolog = run_prolog_program(program=program, curr_dir='./prolog')
@@ -49,9 +43,6 @@ class TaskTester(unittest.TestCase):
         array_and_plot_grid(self.output_grid)
         array_and_plot_grid(out_grid)
         self.assertTrue((out_grid == self.output_grid).all())
-
-
-        print("done")
 
 
 
