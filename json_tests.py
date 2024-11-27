@@ -4,15 +4,17 @@ import unittest
 import numpy as np
 
 from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array, run_prolog_program, array_and_plot_grid
+from task import Task
 
 
 class TaskTester(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.task = load_task()#"data/training/0b148d64.json")
+        cls.task_dict = load_task()#"data/training/0b148d64.json")
+        cls.task = Task(cls.task_dict)
         # Example of accessing input/output grids for the first example
-        cls.input_grid = cls.task['train'][0]['input']
-        cls.output_grid = cls.task['train'][0]['output']
+        cls.input_grid = cls.task_dict['train'][0]['input']
+        cls.output_grid = cls.task_dict['train'][0]['output']
 
         cls.in_preds = grid2FOL(cls.input_grid, "input")
         cls.out_preds = grid2FOL(cls.output_grid, "output")
@@ -44,6 +46,11 @@ class TaskTester(unittest.TestCase):
         array_and_plot_grid(out_grid)
         self.assertTrue((out_grid == self.output_grid).all())
 
+    def test_task_class(self):
+        solution = "solution_1"
+        res = self.task.try_solution(solution)
+
+        print(res)
 
 
 if __name__ == '__main__':
