@@ -1,6 +1,6 @@
 import numpy as np
 
-from main import colour_lookup, run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog
+from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog
 
 
 class Grid:
@@ -24,7 +24,10 @@ class Example:
 
         out_FOL_array = prolog2FOL_array(out_prolog)
         out_grid = FOL2grid(out_FOL_array)
-        result = (out_grid == self.output_grid.grid).all()
+        same = out_grid == self.output_grid.grid
+        result = same.all()
+        if not result:
+            print(f"output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
         return result
 
 class Task:

@@ -13,11 +13,8 @@ class TaskTester(unittest.TestCase):
         cls.task_dict = load_task()#"data/training/0b148d64.json")
         cls.task = Task(cls.task_dict)
         # Example of accessing input/output grids for the first example
-        cls.input_grid = cls.task_dict['train'][0]['input']
-        cls.output_grid = cls.task_dict['train'][0]['output']
-
-        cls.in_preds = grid2FOL(cls.input_grid, "input")
-        cls.out_preds = grid2FOL(cls.output_grid, "output")
+        cls.output_grid = cls.task.train_examples[0].output_grid.grid
+        cls.out_preds = cls.task.train_examples[0].output_grid.preds
 
     def test_ordering(self):
         out_preds = copy.deepcopy(self.out_preds)
@@ -31,27 +28,13 @@ class TaskTester(unittest.TestCase):
         out_grid = FOL2grid(out_FOL_array)
         self.assertTrue((out_grid == self.output_grid).all())
 
-    def test_prolog_program(self):
-        in_prolog = FOL2prolog(self.in_preds)
-        with open('prolog/input_example_1.pl', 'w') as file:
-            file.write(in_prolog)
-
-        program = "[input_example_1], [solution_1], [background_knowledge], print_results, halt."
-
-        out_prolog = run_prolog_program(program=program, curr_dir='./prolog')
-
-        out_FOL_array = prolog2FOL_array(out_prolog)
-        out_grid = FOL2grid(out_FOL_array)
-        array_and_plot_grid(self.output_grid)
-        array_and_plot_grid(out_grid)
-        self.assertTrue((out_grid == self.output_grid).all())
-
     def test_task_class(self):
         solution = "solution_1"
         res = self.task.try_solution(solution)
+        self.assertTrue(res)
 
-        print(res)
-
-
+    def test_task_empty(self):
+        res = self.task.try_solution("empty_solution")
+        self.assertFalse(res)
 if __name__ == '__main__':
     unittest.main()
