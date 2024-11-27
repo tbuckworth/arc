@@ -7,6 +7,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import subprocess
 
+tasks = {
+    "lines": "0b148d64.json",
+    "grids": "90f3ed37.json",
+    "pour": "d4f3cd78.json",
+    "cross": "e21d9049.json",
+    "stripes": "f8c80d96.json"
+}
+
 
 def run_prolog_program(program, curr_dir=""):
     # Construct the command to run SICStus Prolog

@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from main import load_task, grid2FOL, FOL2grid, FOL2prolog, prolog2FOL_array, run_prolog_program, array_and_plot_grid
+from main import load_task, FOL2grid, FOL2prolog, prolog2FOL_array
 from task import Task
 
 
