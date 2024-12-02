@@ -10,7 +10,7 @@ from task import Task
 class TaskTester(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.task_dict = load_task()#"data/training/0b148d64.json")
+        cls.task_dict = load_task("data/training/d4f3cd78.json")
         cls.task = Task(cls.task_dict)
         # Example of accessing input/output grids for the first example
         cls.output_grid = cls.task.train_examples[0].output_grid.grid
@@ -29,12 +29,13 @@ class TaskTester(unittest.TestCase):
         self.assertTrue((out_grid == self.output_grid).all())
 
     def test_task_class(self):
-        solution = "solution_1"
+        solution = "solution_2"
         res = self.task.try_solution(solution)
         self.assertTrue(res)
 
     def test_task_empty(self):
         res = self.task.try_solution("empty_solution")
         self.assertFalse(res)
+
 if __name__ == '__main__':
     unittest.main()

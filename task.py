@@ -1,6 +1,6 @@
 import numpy as np
 
-from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog
+from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog, array_and_plot_grid
 
 
 class Grid:
@@ -28,6 +28,10 @@ class Example:
         result = same.all()
         if not result:
             print(f"output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
+            array_and_plot_grid(self.input_grid.grid)
+            array_and_plot_grid(out_grid)
+            array_and_plot_grid(self.output_grid.grid)
+            raise Exception
         return result
 
 class Task:

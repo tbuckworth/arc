@@ -144,6 +144,11 @@ def colour_names2idx(colour_names):
     colour_to_idx = {colour: idx for idx, colour in zip(df.int, df.name)}
     # Vectorize the mapping function
     vectorized_mapping = np.vectorize(colour_to_idx.get)
+
+    incorrect_colours = np.unique(colour_names[~np.isin(colour_names, df.name)])
+    if len(incorrect_colours) > 0:
+        raise IndexError(f"Incorrect colour names: {'|'.join(incorrect_colours)}\n"
+                         f"Must be one of: {','.join(df.name)}")
     # Apply the mapping to the 2D array
     arr_idx = vectorized_mapping(colour_names)
     return arr_idx
