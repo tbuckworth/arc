@@ -20,19 +20,21 @@ ncol(NC):-
     all_cols(Cs),
     length(Cs, NC).
 
+min([L|Ls], Min) :-
+    min(Ls, L, Min).
 
-min(A, B, B):-
-    A < B.
+min([], Min, Min).
+min([L|Ls], Min0, Min) :-
+    Min1 is min(L, Min0), %N.B.
+    min(Ls, Min1, Min).
 
-min(B, A, B):-
-    A >= B.
-min([Min], Min).
+max([L|Ls], Max):-
+    max(Ls, L, Max).
 
-min([H|T], Min):-
-    min(T, MinT),
-    min(H, MinT, Min).
-
-
+max([], Max, Max).
+max([L|Ls], Max0, Max) :-
+    Max1 is max(L, Max0), %N.B.
+    max(Ls, Max1, Max).
 
 left_wall(C):-
     input_colour(_,C,grey),
@@ -60,7 +62,7 @@ left_wall_unique(W):-
 
 right_wall_unique(W):-
     setof(C, right_wall(C), L),
-    min(L, W).
+    max(L, W).
 
 top_wall_unique(W):-
     setof(C, top_wall(C), L),
@@ -68,7 +70,7 @@ top_wall_unique(W):-
 
 bottom_wall_unique(W):-
     setof(C, bottom_wall(C), L),
-    min(L, W).
+    max(L, W).
 
 
 gap_horizontal(R,C):-
@@ -121,14 +123,14 @@ output_colour(R,C,teal):-
     row(R),
     column(C),
     gap_vertical(RG,C),
-    RG =< R,
     input_colour(RB,C,grey),
-    RB < R.
+    RB < R,
+    RB < RG.
 
 output_colour(R,C,teal):-
     row(R),
     column(C),
     gap_vertical(RG,C),
-    RG >= R,
     input_colour(RB,C,grey),
-    RB > R.
+    RB > R,
+    RB > RG.
