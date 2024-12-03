@@ -8,9 +8,10 @@ import matplotlib.pyplot as plt
 import subprocess
 
 tasks = {
-    "lines": "0b148d64.json",
-    "grids": "90f3ed37.json",
+    # "lines": "0b148d64.json",
+    "lines": "0a938d79.json",
     "pour": "d4f3cd78.json",
+    "grids": "90f3ed37.json",
     "cross": "e21d9049.json",
     "stripes": "f8c80d96.json"
 }
