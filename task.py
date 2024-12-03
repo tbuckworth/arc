@@ -28,9 +28,9 @@ class Example:
         result = same.all()
         if not result:
             print(f"output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
-            array_and_plot_grid(self.input_grid.grid)
+            # array_and_plot_grid(self.input_grid.grid)
             array_and_plot_grid(out_grid)
-            array_and_plot_grid(self.output_grid.grid)
+            # array_and_plot_grid(self.output_grid.grid)
             raise Exception
         return result
 

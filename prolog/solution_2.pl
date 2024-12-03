@@ -54,7 +54,7 @@ top_wall(R):-
 bottom_wall(R):-
     input_colour(R,_,grey),
     input_colour(R2,_,grey),
-    R2 > R.
+    R > R2.
 
 left_wall_unique(W):-
     setof(C, left_wall(C), L),
@@ -95,29 +95,29 @@ output_colour(R,C,teal):-
     row(R),
     column(C),
     top_wall_unique(RT),
-    R < RT,
+    R > RT,
     bottom_wall_unique(RB),
-    R > RB,
-    left_wall_unique(CT),
-    C > CT,
-    right_wall_unique(CB),
-    C < CB.
+    R < RB,
+    left_wall_unique(CL),
+    C > CL,
+    right_wall_unique(CR),
+    C < CR.
 
 output_colour(R,C,teal):-
     row(R),
     column(C),
     gap_horizontal(R,CG),
-    CG =< C,
-    input_colour(R,CL,grey),
-    CL < C.
+    input_colour(R,CB,grey),
+    CB < C,
+    CB < CG.
 
 output_colour(R,C,teal):-
     row(R),
     column(C),
     gap_horizontal(R,CG),
-    CG >= C,
-    input_colour(R,CL,grey),
-    CL > C.
+    input_colour(R,CB,grey),
+    CB > C,
+    CB > CG.
 
 output_colour(R,C,teal):-
     row(R),
