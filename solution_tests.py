@@ -10,6 +10,7 @@ class TaskTester(unittest.TestCase):
         task_dict = load_task(f"data/training/{task_file}")
         task = Task(task_dict)
         res = task.try_solution(solution)
+        # TODO: perhaps remove this, so that all tests run
         self.assertTrue(res)
 
     def test_solution_1(self):

@@ -11,7 +11,8 @@ class Grid:
         self.prolog = FOL2prolog(self.preds)
 
 class Example:
-    def __init__(self, example):
+    def __init__(self, example, idx):
+        self.i = idx
         self.input_grid = Grid(example["input"], "input")
         self.output_grid = Grid(example["output"], "output")
 
@@ -27,18 +28,19 @@ class Example:
         same = out_grid == self.output_grid.grid
         result = same.all()
         if not result:
-            print(f"output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
+            print(f"Example {self.i}: output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
             # array_and_plot_grid(self.input_grid.grid)
-            array_and_plot_grid(out_grid)
+            # array_and_plot_grid(out_grid)
             # array_and_plot_grid(self.output_grid.grid)
-            raise Exception
+            # raise Exception
+        # TODO: create and save plots
         return result
 
 class Task:
     def __init__(self, task_dict):
         self.task_dict = task_dict
-        self.train_examples = [Example(e) for e in task_dict["train"]]
-        self.test_examples = [Example(e) for e in task_dict["test"]]
+        self.train_examples = [Example(e, i) for i, e in enumerate(task_dict["train"])]
+        self.test_examples = [Example(e, i) for i, e in enumerate(task_dict["test"])]
 
     def try_solution(self, solution):
         if not self.try_solution_train(solution):
