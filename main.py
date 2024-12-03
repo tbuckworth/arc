@@ -157,6 +157,7 @@ def colour_names2idx(colour_names):
 def load_jsons():
     # Load a single ARC task
     task = load_task()
+    return task
 
 
 def load_task(json_file='data/training/0a938d79.json'):
