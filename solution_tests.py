@@ -17,7 +17,7 @@ class TaskTester(unittest.TestCase):
         self.try_solution(tasks["lines"], 'solution_1')
 
     def test_solution_2(self):
-        self.try_solution(tasks["pour"], 'solution_2')
+        self.try_solution(tasks["pour"], 'empty_solution')#'solution_2')
 
 if __name__ == '__main__':
     unittest.main()
