@@ -1,6 +1,7 @@
 import numpy as np
 
-from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog, array_and_plot_grid
+from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog, array_and_plot_grid, grid2rgb, \
+    plot_grids
 
 
 class Grid:
@@ -27,6 +28,7 @@ class Example:
         out_grid = FOL2grid(out_FOL_array)
         same = out_grid == self.output_grid.grid
         result = same.all()
+        self.plot_all(solution, out_grid)
         if not result:
             print(f"Example {self.i}: output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
             # array_and_plot_grid(self.input_grid.grid)
@@ -35,6 +37,14 @@ class Example:
             # raise Exception
         # TODO: create and save plots
         return result
+
+    def plot_all(self, solution, out_grid):
+        to_plot = [self.input_grid.grid, out_grid, self.output_grid.grid]
+        filename = f"plots/{solution}_example_{self.i}.png"
+        grids = [grid2rgb(x) for x in to_plot]
+        plot_grids(grids, filename)
+
+
 
 class Task:
     def __init__(self, task_dict):
