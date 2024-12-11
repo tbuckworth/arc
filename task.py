@@ -12,7 +12,8 @@ class Grid:
         self.prolog = FOL2prolog(self.preds)
 
 class Example:
-    def __init__(self, example, idx):
+    def __init__(self, example, idx, example_type):
+        self.example_type = example_type
         self.i = idx
         self.input_grid = Grid(example["input"], "input")
         self.output_grid = Grid(example["output"], "output")
@@ -41,7 +42,7 @@ class Example:
 
     def plot_all(self, solution, out_grid, result_txt):
         to_plot = [self.input_grid.grid, out_grid, self.output_grid.grid]
-        filename = f"plots/{solution}_example_{self.i}.png"
+        filename = f"plots/{self.example_type}_{solution}_example_{self.i}.png"
         grids = [grid2rgb(x) for x in to_plot]
         plot_grids(grids, filename, result_txt)
         return filename
@@ -51,8 +52,8 @@ class Example:
 class Task:
     def __init__(self, task_dict):
         self.task_dict = task_dict
-        self.train_examples = [Example(e, i) for i, e in enumerate(task_dict["train"])]
-        self.test_examples = [Example(e, i) for i, e in enumerate(task_dict["test"])]
+        self.train_examples = [Example(e, i, "Train") for i, e in enumerate(task_dict["train"])]
+        self.test_examples = [Example(e, i, "Test") for i, e in enumerate(task_dict["test"])]
 
     def try_solution(self, solution):
         print("Training Examples:")
