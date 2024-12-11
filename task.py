@@ -32,10 +32,11 @@ class Example:
         out_grid = FOL2grid(out_FOL_array)
         same = out_grid == self.output_grid.grid
         result = same.all()
+        suffix = "" if result else "in"
         result_txt = f"{same.sum()}/{np.prod(same.shape)}"
-        self.plot_all(solution, out_grid, result_txt)
-        if not result:
-            print(f"Example {self.i}: output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
+        plot_file = self.plot_all(solution, out_grid, result_txt)
+        additional_text = "" if result else f"\n\tCheck {plot_file} for more info."
+        print(f"Example {self.i}: output {suffix}correct with {result_txt} correct cells.{additional_text}")
         return result
 
     def plot_all(self, solution, out_grid, result_txt):
@@ -43,6 +44,7 @@ class Example:
         filename = f"plots/{solution}_example_{self.i}.png"
         grids = [grid2rgb(x) for x in to_plot]
         plot_grids(grids, filename, result_txt)
+        return filename
 
 
 
@@ -53,9 +55,11 @@ class Task:
         self.test_examples = [Example(e, i) for i, e in enumerate(task_dict["test"])]
 
     def try_solution(self, solution):
+        print("Training Examples:")
         if not self.try_solution_train(solution):
             print("Failed Training")
             return False
+        print("Test Examples:")
         if not self.try_solution_test(solution):
             print("Failed Test")
             return False
