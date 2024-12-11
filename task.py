@@ -18,7 +18,7 @@ class Example:
         self.input_grid = Grid(example["input"], "input")
         self.output_grid = Grid(example["output"], "output")
 
-    def try_solution(self, solution):
+    def generate_solution(self, solution):
         in_filename = "tmp_input_file"
         with open(f'prolog/{in_filename}.pl', 'w') as file:
             file.write(self.input_grid.prolog)
@@ -28,9 +28,14 @@ class Example:
             print(f"Prolog likely timed out.\n"
                   f"Try to run your clauses manually to see whether you get errors "
                   f"or whether you can improve your program's efficiency.")
-            return False
+            return None
         out_FOL_array = prolog2FOL_array(out_prolog)
-        out_grid = FOL2grid(out_FOL_array)
+        return FOL2grid(out_FOL_array)
+
+    def try_solution(self, solution):
+        out_grid = self.generate_solution(solution)
+        if out_grid is None:
+            return False
         same = out_grid == self.output_grid.grid
         result = same.all()
         suffix = "" if result else "in"
