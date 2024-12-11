@@ -42,6 +42,7 @@ def run_prolog_program(program, curr_dir=""):
         print("SICStus Prolog timed out.")
         return None
 
+
 def hex_to_rgb(hex_color):
     # Remove the '#' character if it exists
     hex_color = hex_color.lstrip('#')
@@ -57,7 +58,7 @@ def hex_to_rgb(hex_color):
 def plot_grids(rgb_grid_list, filename, result_txt):
     titles = ["Input Grid", "Your Output Grid", "True Output Grid"]  # Titles for the first three subplots
     # Create a plot with gridlines
-    fig, axes = plt.subplots(2,2)
+    fig, axes = plt.subplots(2, 2)
     for i, ax in enumerate(axes.flat):
         if i == 3:
             ax.text(0.5, 0.5, f"{result_txt} Cells Correct",
@@ -226,6 +227,5 @@ def grid2rgb(input_grid):
     return rgb_grid
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     load_jsons()

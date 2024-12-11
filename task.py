@@ -23,7 +23,11 @@ class Example:
             file.write(self.input_grid.prolog)
         program = f"[{in_filename}], [{solution}], [background_knowledge], print_results, halt."
         out_prolog = run_prolog_program(program=program, curr_dir='./prolog')
-
+        if out_prolog is None:
+            print(f"Prolog likely timed out.\n"
+                  f"Try to run your clauses manually to see whether you get errors "
+                  f"or whether you can improve your program's efficiency.")
+            return False
         out_FOL_array = prolog2FOL_array(out_prolog)
         out_grid = FOL2grid(out_FOL_array)
         same = out_grid == self.output_grid.grid
