@@ -54,13 +54,13 @@ def hex_to_rgb(hex_color):
 # rgb_color = hex_to_rgb(hex_color)
 # print("RGB Color:", rgb_color)
 
-def plot_grids(rgb_grid_list, filename):
+def plot_grids(rgb_grid_list, filename, result_txt):
     titles = ["Input Grid", "Your Output Grid", "True Output Grid"]  # Titles for the first three subplots
     # Create a plot with gridlines
     fig, axes = plt.subplots(2,2)
     for i, ax in enumerate(axes.flat):
         if i == 3:
-            ax.text(0.5, 0.5, "Your Custom Text Here",
+            ax.text(0.5, 0.5, f"{result_txt} Cells Correct",
                     fontsize=14, color='black', ha='center', va='center', wrap=True)
             ax.set_xticks([])  # Remove ticks for text box
             ax.set_yticks([])
@@ -85,11 +85,12 @@ def plot_grids(rgb_grid_list, filename):
         # Add titles
         ax.set_title(titles[i])
 
-        # Remove extra whitespace
-        plt.subplots_adjust(left=0.005, right=0.995, top=0.995, bottom=0.005)
         ax.set_aspect('equal')  # Ensure pixels are square
+
+    # Remove extra whitespace
+    # plt.subplots_adjust(left=0.005, right=0.995, top=0.995, bottom=0.005)
+    # plt.tight_layout()
     plt.savefig(filename)
-    plt.show()
 
 
 def plot_grid(rgb_grid):

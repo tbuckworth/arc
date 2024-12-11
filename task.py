@@ -28,21 +28,17 @@ class Example:
         out_grid = FOL2grid(out_FOL_array)
         same = out_grid == self.output_grid.grid
         result = same.all()
-        self.plot_all(solution, out_grid)
+        result_txt = f"{same.sum()}/{np.prod(same.shape)}"
+        self.plot_all(solution, out_grid, result_txt)
         if not result:
             print(f"Example {self.i}: output incorrect due to {(~same).sum()}/{np.prod(same.shape)} cells")
-            # array_and_plot_grid(self.input_grid.grid)
-            # array_and_plot_grid(out_grid)
-            # array_and_plot_grid(self.output_grid.grid)
-            # raise Exception
-        # TODO: create and save plots
         return result
 
-    def plot_all(self, solution, out_grid):
+    def plot_all(self, solution, out_grid, result_txt):
         to_plot = [self.input_grid.grid, out_grid, self.output_grid.grid]
         filename = f"plots/{solution}_example_{self.i}.png"
         grids = [grid2rgb(x) for x in to_plot]
-        plot_grids(grids, filename)
+        plot_grids(grids, filename, result_txt)
 
 
 
