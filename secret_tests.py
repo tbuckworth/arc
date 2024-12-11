@@ -13,11 +13,11 @@ class TaskTester(unittest.TestCase):
         res = task.try_solution(solution)
         self.assertTrue(res)
 
-    def test_solution_1(self):
+    def test_solution_2(self):
         self.try_solution("pour", 'solution_2')
 
-    def test_solution_2(self):
-        self.try_solution(tasks["pour"], 'solution_2')
+    def test_solution_1(self):
+        self.try_solution("lines", 'solution_1')
 
 if __name__ == '__main__':
     unittest.main()
