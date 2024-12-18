@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import subprocess
 
 tasks = {
-    # "lines": "0b148d64.json",
     "lines": "0a938d79.json",
     "pour": "d4f3cd78.json",
     "grids": "90f3ed37.json",
@@ -18,9 +17,6 @@ tasks = {
 def run_prolog_program(program, curr_dir=""):
     # Construct the command to run SICStus Prolog
     command = ['/usr/local/sicstus4.8.0/bin/sicstus', '--noinfo', '--goal', program]
-
-    # Execute the command
-    # result = subprocess.run(command, capture_output=True, text=True, cwd=curr_dir)
 
     try:
         result = subprocess.run(
@@ -40,18 +36,6 @@ def run_prolog_program(program, curr_dir=""):
         print("SICStus Prolog timed out.")
         return None
 
-
-def hex_to_rgb(hex_color):
-    # Remove the '#' character if it exists
-    hex_color = hex_color.lstrip('#')
-    # Convert the hexadecimal values to RGB tuple
-    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
-
-
-# # Example usage
-# hex_color = "#34A2FE"
-# rgb_color = hex_to_rgb(hex_color)
-# print("RGB Color:", rgb_color)
 
 def plot_grids(rgb_grid_list, filename, result_txt):
     titles = ["Input Grid", "Your Output Grid", "True Output Grid"]  # Titles for the first three subplots
@@ -86,9 +70,6 @@ def plot_grids(rgb_grid_list, filename, result_txt):
 
         ax.set_aspect('equal')  # Ensure pixels are square
 
-    # Remove extra whitespace
-    # plt.subplots_adjust(left=0.005, right=0.995, top=0.995, bottom=0.005)
-    # plt.tight_layout()
     plt.savefig(filename)
 
 
@@ -127,28 +108,6 @@ def colour_lookup():
     return df['name'].values
 
 
-def nd_sort(arr):
-    # Reshape the array to a 2D array where each row represents a combination of indices and values
-    D1, D2, D3 = arr.shape
-    arr_flat = arr.reshape(-1, D3)
-
-    # Create index arrays for the first two dimensions
-    idx0, idx1 = np.meshgrid(np.arange(D1), np.arange(D2), indexing='ij')
-    idx0 = idx0.flatten()
-    idx1 = idx1.flatten()
-
-    # Combine indices and values
-    combined = np.column_stack((idx0, idx1, arr_flat))
-
-    # Sort based on the first two indices
-    sorted_indices = np.lexsort((combined[:, 1], combined[:, 0]))
-    sorted_combined = combined[sorted_indices]
-
-    # Reshape back to the original array shape if needed
-    sorted_arr = sorted_combined[:, 2:].reshape(D1, D2, D3)
-    return sorted_arr
-
-
 def FOL2prolog(preds):
     return '\n'.join(['\n'.join(x) for x in preds])
 
@@ -166,10 +125,6 @@ def FOL2grid(preds):
     strs = np.array(np.char.split(preds, ",").tolist())
     idx = strs[..., :2].astype(int)
     col_val = colour_names2idx(strs[..., -1])
-
-    # shape = idx.max(0) + 1
-    # idx_1d = idx[..., 0] * shape[1] + idx[..., 1]
-    # col_val[idx_1d].reshape(shape)
 
     out = np.zeros(idx.max(0) + 1)
     for i in range(len(idx)):
