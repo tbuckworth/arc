@@ -178,7 +178,3 @@ def grid2rgb(input_grid):
     grid = np.array(input_grid).astype(np.int64)
     rgb_grid = rgb_lookup()[grid]
     return rgb_grid
-
-
-if __name__ == '__main__':
-    load_jsons()

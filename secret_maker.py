@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 
-from main import tasks, load_task
+from utils import tasks, load_task
 from task import Task, Example
 
 def make_secret_pour():

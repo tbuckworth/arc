@@ -1,6 +1,6 @@
 import unittest
 
-from main import load_task, tasks
+from utils import load_task, tasks
 from task import Task
 
 

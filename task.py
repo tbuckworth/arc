@@ -1,6 +1,6 @@
 import numpy as np
 
-from main import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog, array_and_plot_grid, grid2rgb, \
+from utils import run_prolog_program, prolog2FOL_array, FOL2grid, grid2FOL, FOL2prolog, grid2rgb, \
     plot_grids
 
 
