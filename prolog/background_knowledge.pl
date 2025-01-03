@@ -1,13 +1,13 @@
-% Students must define row/1, column/1 and output_colour/3.
+% Students must define row/1, col/1 and output_colour/3.
 
 output_with_default(Row, Column, Colour) :-
     row(Row),
-    column(Column),
+    col(Column),
     output_colour(Row, Column, Colour).
 
 output_with_default(Row, Column, black) :-
     row(Row),
-    column(Column),
+    col(Column),
     \+ output_colour(Row, Column, _).
 
 print_results([]).

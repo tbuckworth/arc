@@ -8,10 +8,10 @@ row(R):-
     all_rows(Rs),
     member(R,Rs).
 
-column(C):-
+col(C):-
     all_cols(Cs),
     member(C,Cs).
 
 output_colour(Row,Column,black):-
     row(Row),
-    column(Column).
+    col(Column).

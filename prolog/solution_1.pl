@@ -8,7 +8,7 @@ row(R):-
     all_rows(Rs),
     member(R,Rs).
 
-column(C):-
+col(C):-
     all_cols(Cs),
     member(C,Cs).
 
@@ -57,7 +57,7 @@ vertical_diff(N):-
 output_colour(R,C,Colour):-
     vertical_colour(Cstart, Colour),
     vertical_diff(VD),
-    column(C),
+    col(C),
     row(R),
     C >= Cstart,
     0 is ((C-Cstart) rem (2 * VD)).
@@ -66,7 +66,7 @@ output_colour(R,C,Colour):-
     horizontal_colour(Rstart, Colour),
     horizontal_diff(VD),
     row(R),
-    column(C),
+    col(C),
     R >= Rstart,
     0 is ((R-Rstart) rem (2 * VD)).
 

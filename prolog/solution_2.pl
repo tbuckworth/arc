@@ -8,7 +8,7 @@ row(R):-
     all_rows(Rs),
     member(R,Rs).
 
-column(C):-
+col(C):-
     all_cols(Cs),
     member(C,Cs).
 
@@ -93,7 +93,7 @@ output_colour(R,C,grey):-
 
 output_colour(R,C,teal):-
     row(R),
-    column(C),
+    col(C),
     top_wall_unique(RT),
     R > RT,
     bottom_wall_unique(RB),
@@ -105,7 +105,7 @@ output_colour(R,C,teal):-
 
 output_colour(R,C,teal):-
     row(R),
-    column(C),
+    col(C),
     gap_horizontal(R,CG),
     input_colour(R,CB,grey),
     CB < C,
@@ -113,7 +113,7 @@ output_colour(R,C,teal):-
 
 output_colour(R,C,teal):-
     row(R),
-    column(C),
+    col(C),
     gap_horizontal(R,CG),
     input_colour(R,CB,grey),
     CB > C,
@@ -121,7 +121,7 @@ output_colour(R,C,teal):-
 
 output_colour(R,C,teal):-
     row(R),
-    column(C),
+    col(C),
     gap_vertical(RG,C),
     input_colour(RB,C,grey),
     RB < R,
@@ -129,7 +129,7 @@ output_colour(R,C,teal):-
 
 output_colour(R,C,teal):-
     row(R),
-    column(C),
+    col(C),
     gap_vertical(RG,C),
     input_colour(RB,C,grey),
     RB > R,
