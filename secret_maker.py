@@ -42,5 +42,5 @@ def make_secret_lines():
         json.dump(task_dict, json_file, indent=None)
 
 if __name__ == "__main__":
-    make_secret_lines()
+    make_secret_pour()
 
