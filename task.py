@@ -47,7 +47,7 @@ class Example:
 
     def plot_all(self, solution, out_grid, result_txt):
         to_plot = [self.input_grid.grid, out_grid, self.output_grid.grid]
-        filename = f"plots/{self.example_type}_{solution}_example_{self.i}.png"
+        filename = f"plots/{self.example_type}_{solution}_example_{self.i}.pdf"
         grids = [grid2rgb(x) for x in to_plot]
         plot_grids(grids, filename, result_txt)
         return filename
