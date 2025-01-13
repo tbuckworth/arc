@@ -14,7 +14,7 @@ tasks = {
 }
 
 
-def run_prolog_program(program, curr_dir=""):
+def run_prolog_program(program, curr_dir="", return_err=False):
     # Construct the command to run SICStus Prolog
     command = ['/usr/bin/sicstus', '--noinfo', '--goal', program]
     try:
@@ -25,6 +25,8 @@ def run_prolog_program(program, curr_dir=""):
             cwd=curr_dir,
             timeout=30  # Timeout after 30 seconds
         )
+        if return_err:
+            return result.stderr
         if result.returncode != 0:
             print("SICStus Prolog reported an error:")
             return result.stderr
