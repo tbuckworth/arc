@@ -56,7 +56,6 @@ def check():
     results = []
     for name, test in tests.items():
         res = run_code(test)
-        print(res)
         score = 0
         if res is not None:
             search = re.search(r":(.*)/(.*)", res)
@@ -64,6 +63,12 @@ def check():
             m = search.group(2)
             if n == m:
                 score = 1
+                print(f"{name}: answer:{n}, correct:{m} - Succeeded")
+            else:
+                print(f"{name}: answer:{n}, correct:{m} - Failed")
+        else:
+            print(f"{name}: Error - Failed")
+
         results.append(
             {"score":score,
              "name":f"helpers:{name}",

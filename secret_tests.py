@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import unittest
 
 from helper_check import check, all_singletons
@@ -19,7 +20,12 @@ class TaskTester(unittest.TestCase):
         print(f"\n{solution}")
         task_dict = load_task(f"secret_tests/{task_file}.json")
         task = Task(task_dict, solution)
+        start = time.time()
         res = task.try_solution(solution, test_results_info)
+        elapsed = time.time() - start
+        test_results_info.append([
+            {"score": f"{elapsed:.4f}s","name":f"{solution} time", "possible":"NA"}
+        ])
         # self.assertTrue(res)
         with open(results_dir, 'w') as json_file:
             json.dump(test_results_info, json_file, indent=4)
