@@ -16,8 +16,7 @@ tasks = {
 
 def run_prolog_program(program, curr_dir=""):
     # Construct the command to run SICStus Prolog
-    command = ['/usr/local/sicstus4.8.0/bin/sicstus', '--noinfo', '--goal', program]
-
+    command = ['/usr/bin/sicstus', '--noinfo', '--goal', program]
     try:
         result = subprocess.run(
             command,
